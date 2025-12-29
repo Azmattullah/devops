@@ -68,6 +68,11 @@ docker image prune
 docker image prune -a
 ```
 
+### View the history of a Docker image
+```bash
+docker history <image_name_or_id>
+```
+
 ---
 
 ## 3. Docker Container Lifecycle
@@ -92,6 +97,16 @@ docker run -e KEY=value <image_name>
 
 # Run container with volume mount
 docker run -v /host/path:/container/path <image_name>
+
+# Attach a container to an existing network
+docker network connect <network_name> <container_name_or_id>
+
+# Disconnect a container from a network
+docker network disconnect <network_name> <container_name_or_id>
+
+# Rename a Docker container
+docker rename <old_name> <new_name>
+
 ```
 
 ---
@@ -107,6 +122,9 @@ docker stop <container_name>
 
 # Restart a container
 docker restart <container_name>
+
+# Restart all stopped containers
+docker start $(docker ps -q -a)
 ```
 
 ---
@@ -122,6 +140,26 @@ docker rm -f <container_name>
 
 # Remove all stopped containers
 docker container prune
+```
+---
+
+### Set environment variables in a Docker container
+
+Use the -e option:
+```bash
+docker run -e MY_VAR=value <image_name>
+```
+**Or use the ENV instruction in a Dockerfile:**
+
+ENV MY_VAR value
+
+### Export and Import a Docker container
+```bash
+# To export a container
+docker export <container_name_or_id> > my_container.tar
+
+# To import it
+cat my_container.tar | docker import - my_image:latest
 ```
 
 ---
@@ -188,6 +226,9 @@ docker network inspect <network_name>
 # Create a custom bridge network
 docker network create <network_name>
 
+# To attach a container
+docker run --network my_bridge <image_name>
+
 # Remove a network
 docker network rm <network_name>
 ```
@@ -202,6 +243,9 @@ docker volume ls
 
 # Create volume
 docker volume create <volume_name>
+
+# Attach volume to image
+docker run -v my_volume:/data <image_name>
 
 # Inspect volume
 docker volume inspect <volume_name>
@@ -255,6 +299,12 @@ docker compose logs -f
 docker compose build
 ```
 
+```bash
+# Scale Services
+docker-compose up --scale <service_name>=<number>
+Example: docker-compose up --scale web=3
+```
+
 ---
 
 ## 10. Best Practices (Documentation Notes)
@@ -265,3 +315,31 @@ docker compose build
 * Clean unused images regularly
 * Use volumes for persistent data
 * Prefer Docker Compose for multi-container apps
+
+
+
+---
+
+## 11. Limit a container's CPU and Memory usage
+
+```bash
+# To limit CPU usage
+docker run --cpus="1.5" <image_name>
+
+# To limit memory usage
+docker run -m="512m" <image_name>
+```
+
+## 12. Copy files from a container to the host?
+
+```bash
+# copy container to host
+docker cp <container_id>:<container_path> <host_path>
+```
+
+## 13. What are Docker tags, and how do you create them?
+Docker tags are labels applied to images to identify different versions. 
+```bash
+# docker tag
+docker tag <image_id> <repository>:<tag>
+```
