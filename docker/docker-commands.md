@@ -147,7 +147,11 @@ docker container prune
 
 Use the -e option:
 ```bash
+# For single enviroment variable
 docker run -e MY_VAR=value <image_name>
+
+# For multiple enviroment variable
+docker run -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=1234 postgres:latest
 ```
 **Or use the ENV instruction in a Dockerfile:**
 
@@ -342,4 +346,12 @@ Docker tags are labels applied to images to identify different versions.
 ```bash
 # docker tag
 docker tag <image_id> <repository>:<tag>
+```
+
+---
+
+## 14. Send a signal to a running container and read its logs
+```bash
+docker kill --signal SIGUSR1 app-1
+docker logs app-1
 ```
