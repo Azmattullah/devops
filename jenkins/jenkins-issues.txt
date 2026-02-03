@@ -1,0 +1,11 @@
+
+This is the issue i got on jenkins pileline:
+
+1. Versionning issue with docker souct, where versoning mismatch.
+
+2. Docker Jenkins permission issue.
+    - so we have to add jenkins to docker group or giver docker permission.
+
+3. Docker container already running or already exist.
+    - remove the existing container logic is pileline.
+    - or use different dynamic name to the container.

@@ -14,6 +14,13 @@ docker login -u <username>
 docker logout
 ```
 
+### Docker Permission
+```bash
+# Run Docker without sudo
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
 ### Image Push / Pull
 
 ```bash

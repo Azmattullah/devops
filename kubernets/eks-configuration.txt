@@ -1,0 +1,100 @@
+
+
+eksctl create cluster \
+  --name azmatcluster \
+  --region ap-south-2 \
+  --zones ap-south-2a,ap-south-2b \
+  --version 1.29 \
+  --without-nodegroup \
+  --managed \
+  --vpc-nat-mode HighlyAvailable \
+  --with-oidc \
+  --tags "Environment=prod,Owner=azmat"
+
+
+eksctl utils associate-iam-oidc-provider \
+  --region ap-south-2 \
+  --cluster azmatcluster \
+  --approve  
+
+
+eksctl create nodegroup \
+  --cluster azmatcluster \
+  --region ap-south-2 \
+  --name ng-public-azmat \
+  --managed \
+  --node-type t3.medium \
+  --nodes 2 \
+  --nodes-min 2 \
+  --nodes-max 4 \
+  --node-volume-size 20 \
+  --node-volume-type gp3 \
+  --ssh-access \
+  --ssh-public-key bestcast-hydrabad-jan26 \
+  --enable-ssm \
+  --asg-access \
+  --external-dns-access \
+  --alb-ingress-access \
+  --full-ecr-access \
+  --tags "Environment=prod,NodeGroup=public"
+
+
+eksctl delete cluster --name azmatuser --region ap-south-2
+
+
+
+# List EKS cluster
+eksctl get cluster
+
+# Capture Node Group 
+eksctl get nodegroup --cluster=cluster_name
+
+# Delete Node Group
+eksctl delete nodegroup --cluster=cluster_name --name=node_group_name
+
+# Delete Cluster 
+eksctl delete cluster cluster_name --region region_name
+
+
+
+https://<node-ip>:<node-port>
+http://10.100.86.169:31252
+https://10.100.86.169:30653
+
+
+
+kubectl get ns 
+kubectl get pods -n argocd
+
+
+
+
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+kubectl create namespace prometheus-node-exporter
+
+helm install prometheus-node-exporter prometheus-community/prometheus-node-exporter --namespace prometheus-node-exporter
+
+
+
+eksctl scale nodegroup \
+  --cluster azmatcluster \
+  --region ap-south-2 \
+  --name ng-public-azmat \
+  --nodes 0 \
+  --nodes-min 0 \
+  --nodes-max 4
+
+
+eksctl get nodegroup \
+  --cluster azmatcluster \
+  --region ap-south-2
+
+
+argocd-password = QcQrq0ozjNw62FOR
+
+
+Path for prometheus.yml file
+sudo vi /etc/prometheus/prometheus.yml
