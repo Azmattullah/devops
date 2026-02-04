@@ -8,7 +8,7 @@
 sudo vim /etc/apache2/sites-available/laravel_project.conf
 ```
 
-### Example Configuration (for IP-based access)
+## 1. Configuration with IP-based access
 
 ```apache
 <VirtualHost *:80>
@@ -37,7 +37,7 @@ sudo systemctl restart apache2
 
 <br><br>
 
-## Domain Mapping (Optional – For Custom Domain)
+## 2. Main Domain Mapping
 
 If you have a domain (e.g. `bestcast.com`), update your **Apache VirtualHost** as follows:
 
@@ -74,9 +74,40 @@ sudo systemctl restart apache2
 
 <br><br>
 
+## 3. Sub Domain Mapping
+
+```apache
+<VirtualHost *:80>
+    ServerAdmin admin@tool65.com
+    ServerName cyber.tools65.com
+    ServerAlias www.cyber.tools65.com
+
+    DocumentRoot /var/www/cybertools/public
+
+    <Directory /var/www/cybertools/public>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/cyber.tools65.error.log
+    CustomLog ${APACHE_LOG_DIR}/cyber.tools65.access.log combined
+</VirtualHost>
+```
+
+
+<br><br>
+
 ## Check Configuration and Reload Apache
 
 ```bash
 sudo apache2ctl configtest
+sudo systemctl reload apache2
+```
+
+## If Domain miss match Disable the default site (recommended)
+
+```bash
+sudo a2dissite 000-default.conf
 sudo systemctl reload apache2
 ```
