@@ -20,7 +20,7 @@ mysqldump --version
 
 ---
 
-### **2. Dump a Local MySQL Database**
+### **(DANGER please read once) 2. Dump a Local MySQL Database**
 
 If the database is on your **local system**:
 
