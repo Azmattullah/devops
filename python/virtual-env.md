@@ -39,6 +39,12 @@ deactivate
 
 ## Option 2: Using `venv` (Built-in for Python 3)
 
+### Install venv
+
+```bash
+sudo apt install python3.12-venv
+```
+
 ### Create Virtual Environment
 
 ```bash
