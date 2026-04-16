@@ -17,7 +17,7 @@ which zip unzip
 
 <br>
 
-### Create (Zip) Archives
+## Create (Zip) Archives
 
 ### Zip a single file
 
@@ -39,7 +39,7 @@ zip -r myarchive.zip myfolder/
 
 <br>
 
-### Extract (Unzip) Archives
+## Extract (Unzip) Archives
 
 ### Unzip into the current directory
 
@@ -65,3 +65,16 @@ unzip myarchive.zip -d /path/to/extract/
   ```bash
   unzip -l myarchive.zip
   ```
+---
+
+<br>
+<br>
+<br>
+
+# Zip and Unzip Files in Linux
+
+### Unrar the rar file.
+
+```
+sudo unrar x 'file_name.rar'
+```
