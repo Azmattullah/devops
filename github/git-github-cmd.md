@@ -221,3 +221,29 @@ git add .
 git commit -m "reverted"
 git push origin main
 ```
+
+<br><br>
+
+## Clear Git Cache
+
+### To clear everything
+
+```bash
+git rm -r --cached .
+git add .
+git commit -m "Cleaned up git cache"
+```
+
+### To clear a specific file or folder
+```bash
+# To clear File 
+git rm --cached <file_path>
+
+# To clear Folder
+git rm -r --cached <folder_path>
+```
+
+### Clearing Cached Credentials
+```bash
+git credential-cache exit
+```
